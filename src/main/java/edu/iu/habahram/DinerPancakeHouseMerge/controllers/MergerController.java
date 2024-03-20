@@ -1,5 +1,6 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.controllers;
 
+import edu.iu.habahram.DinerPancakeHouseMerge.model.Iterator;
 import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItem;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.DinerRepository;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.PancakeHouseRepository;
@@ -27,9 +28,9 @@ public class MergerController {
     @GetMapping
     public List<MenuItem> get() {
         List<MenuItem> menuItems = new ArrayList<>();
-        MenuItem[] lunchItems = dinerRepository.getTheMenu();;
-        for (int i = 0; i < lunchItems.length; i++) {
-            menuItems.add(lunchItems[i]);
+        Iterator lunchItems = dinerRepository.getTheMenuIterator();
+        while(lunchItems.hasNext()) {
+            menuItems.add(lunchItems.next());
         }
 
         List<MenuItem> breakfastItems = pancakeHouseRepository.getTheMenu();
