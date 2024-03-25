@@ -2,12 +2,13 @@ package edu.iu.habahram.DinerPancakeHouseMerge.repository;
 
 import edu.iu.habahram.DinerPancakeHouseMerge.model.*;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+@Repository
 public class MergerRepository {
 
 

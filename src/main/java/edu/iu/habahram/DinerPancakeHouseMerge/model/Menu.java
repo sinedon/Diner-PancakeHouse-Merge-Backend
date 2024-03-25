@@ -46,4 +46,11 @@ public class Menu extends MenuComponent{
         }
         return  menuItemList.toArray(new MenuItem[menuItemList.size()]);
     }
+
+    public void testCompositeIterator(MenuComponent component) {
+        CompositeIterator iterator = new CompositeIterator(component.iterator);
+        while(iterator.hasNext()) {
+            MenuComponent component = iterator.next();
+        }
+    }
 }
