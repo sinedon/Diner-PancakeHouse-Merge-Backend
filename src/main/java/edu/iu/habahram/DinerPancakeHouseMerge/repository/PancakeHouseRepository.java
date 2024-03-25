@@ -1,16 +1,12 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.repository;
 
-import edu.iu.habahram.DinerPancakeHouseMerge.model.DinerMenu;
 import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItem;
-import edu.iu.habahram.DinerPancakeHouseMerge.model.PancakeHouseMenu;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
+import edu.iu.habahram.DinerPancakeHouseMerge.model.DinerMenu;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class PancakeHouseRepository implements Iterable<MenuItem> {
+public class PancakeHouseRepository extends DinerMenu {
     private MenuItem[] menuItems;
 
     public PancakeHouseRepository() {
@@ -23,7 +19,7 @@ public class PancakeHouseRepository implements Iterable<MenuItem> {
     }
 
     @Override
-    public Iterator<MenuItem> iterator() {
+    public Iterator<MenuItem> createIterator() {
         return new PancakeHouseIterator();
     }
 
@@ -32,7 +28,7 @@ public class PancakeHouseRepository implements Iterable<MenuItem> {
 
         @Override
         public boolean hasNext() {
-            return position < menuItems.length;
+            return position < menuItems.length && menuItems[position] != null;
         }
 
         @Override
@@ -44,4 +40,5 @@ public class PancakeHouseRepository implements Iterable<MenuItem> {
         }
     }
 }
+
 
