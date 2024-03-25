@@ -1,29 +1,36 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.controllers;
 
 import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItem;
-import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItemRecord;
-import edu.iu.habahram.DinerPancakeHouseMerge.repository.MergerRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import edu.iu.habahram.DinerPancakeHouseMerge.repository.DinerRepository;
+import edu.iu.habahram.DinerPancakeHouseMerge.repository.PancakeHouseRepository;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-@RestController
-@CrossOrigin
-@RequestMapping("/merger")
 public class MergerController {
 
-    MergerRepository mergerRepository;
+    PancakeHouseRepository prepository;
+    DinerRepository drepository;
 
-    public MergerController(MergerRepository mergerRepository) {
-       this.mergerRepository = mergerRepository;
+    public MergerController(PancakeHouseRepository prepository, DinerRepository drepository) {
+        this.drepository = drepository;
+        this.prepository = prepository;
     }
 
-    @GetMapping
-    public List<MenuItemRecord> get() {
-        List<MenuItemRecord> items = mergerRepository.getTheMenuItems();
-        return items;
+    @GetMapping("/merger")
+    public List<MenuItem> get() {
+        List<MenuItem> mergedMenu = new ArrayList<>();
+
+        mergedMenu.addAll(prepository.getTheMenu());
+
+        for (MenuItem item : drepository.getTheMenu()) {
+            mergedMenu.add(item);
+        }
+        
+        mergedMenu.sort(Comparator.comparing(MenuItem::getName));
+
+        return mergedMenu;
     }
 }
