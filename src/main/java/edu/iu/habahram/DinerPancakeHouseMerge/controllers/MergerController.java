@@ -1,6 +1,7 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.controllers;
 
 import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItem;
+import edu.iu.habahram.DinerPancakeHouseMerge.repository.CafeRepository;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.DinerRepository;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.PancakeHouseRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,28 +15,33 @@ public class MergerController {
     PancakeHouseRepository prepository;
     DinerRepository drepository;
 
-    public MergerController(PancakeHouseRepository prepository, DinerRepository drepository) {
+    CafeRepository crepository;
+
+    public MergerController(PancakeHouseRepository prepository, DinerRepository drepository, CafeRepository crepository) {
         this.drepository = drepository;
         this.prepository = prepository;
+        this.crepository = crepository;
     }
 
     @GetMapping("/merger")
     public List<MenuItem> get() {
         List<MenuItem> mergedMenu = new ArrayList<>();
 
-        // Iterate over PancakeHouse menu using iterator
-        Iterator<MenuItem> pancakeIterator = prepository.createIterator();
+        Iterator<MenuItem> pancakeIterator = prepository.getTheMenuIterator();
         while (pancakeIterator.hasNext()) {
-            mergedMenu.add((MenuItem) pancakeIterator.next());
+            mergedMenu.add(pancakeIterator.next());
         }
 
-        // Iterate over Diner menu using iterator
-        Iterator<MenuItem> dinerIterator = drepository.createIterator();
+        Iterator<MenuItem> dinerIterator = drepository.getTheMenuIterator();
         while (dinerIterator.hasNext()) {
-            mergedMenu.add((MenuItem) dinerIterator.next());
+            mergedMenu.add(dinerIterator.next());
         }
 
-        // Sort the merged menu by name
+        Iterator<MenuItem> cafeIterator = crepository.getTheMenuIterator();
+        while (dinerIterator.hasNext()) {
+            mergedMenu.add(cafeIterator.next());
+        }
+
         mergedMenu.sort(Comparator.comparing(MenuItem::getName));
 
         return mergedMenu;
