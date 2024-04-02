@@ -14,8 +14,9 @@ public class PancakeHouseRepository {
         return pancakeHouseMenu.getMenuItems();
     }
 
-    public Iterator<MenuItem> createIterator() {
-        return new PancakeMenuIterator(getTheMenu());
+    public Iterator<MenuItem> getTheMenuIterator() {
+        Menu pancakeMenu = new PancakeHouseMenu();
+        return pancakeMenu.createIterator();
     }
 }
 
