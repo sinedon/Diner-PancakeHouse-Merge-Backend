@@ -1,8 +1,8 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.model;
 
 import java.util.NoSuchElementException;
-
-public class DinerMenuIterator implements Iterator {
+import java.util.Iterator;
+public class DinerMenuIterator implements Iterator<MenuItem> {
     MenuItem[] list;
     int position = 0;
 
@@ -16,10 +16,24 @@ public class DinerMenuIterator implements Iterator {
     }
 
     @Override
-    public Object next() {
+    public MenuItem next() {
         if (!hasNext()) {
             throw new NoSuchElementException("No more elements in the iterator");
         }
         return list[position++];
+    }
+
+    @Override
+    public void remove() {
+        if (position <= 0) {
+            throw new IllegalStateException("You can't remove an item until you've done at least one next()");
+        }
+
+        if (list[position -1] != null) {
+            for (int i = position - 1; i < (list.length - 1); i++) {
+                list[i] = list[i+1];
+            }
+            list[list.length - 1] = null;
+        }
     }
 }
