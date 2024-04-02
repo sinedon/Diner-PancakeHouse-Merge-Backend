@@ -4,7 +4,7 @@ import edu.iu.habahram.DinerPancakeHouseMerge.model.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
@@ -14,7 +14,7 @@ public class PancakeHouseRepository {
         return pancakeHouseMenu.getMenuItems();
     }
 
-    public Iterator createIterator() {
+    public Iterator<MenuItem> createIterator() {
         return new PancakeMenuIterator(getTheMenu());
     }
 }
