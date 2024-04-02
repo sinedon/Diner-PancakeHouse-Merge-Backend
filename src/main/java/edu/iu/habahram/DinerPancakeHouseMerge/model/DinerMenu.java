@@ -1,5 +1,4 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.model;
-import java.util.Iterator;
 
 import java.util.Iterator;
 
@@ -33,24 +32,9 @@ public class DinerMenu extends Menu{
     }
 
 
-    public Iterator<MenuItem> createIterator() {
-        return new DinerMenuIterator();
+    public Iterator createIterator() {
+        return new DinerMenuIterator(menuItems);
     }
 
-    private class DinerMenuIterator implements Iterator<MenuItem> {
-        private int position = 0;
-
-        @Override
-        public boolean hasNext() {
-            return position < menuItems.length && menuItems[position] != null;
-        }
-
-        @Override
-        public MenuItem next() {
-            MenuItem menuItem = menuItems[position];
-            position++;
-            return menuItem;
-        }
-    }
+      // other menu methods here
 }
-

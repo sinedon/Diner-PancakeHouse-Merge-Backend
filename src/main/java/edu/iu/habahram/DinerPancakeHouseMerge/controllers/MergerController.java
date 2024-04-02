@@ -1,40 +1,38 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.controllers;
 
-import edu.iu.habahram.DinerPancakeHouseMerge.model.DinerMenu;
 import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItem;
-import edu.iu.habahram.DinerPancakeHouseMerge.model.PancakeHouseMenu;
+import edu.iu.habahram.DinerPancakeHouseMerge.model.Iterator;
+import edu.iu.habahram.DinerPancakeHouseMerge.repository.DinerRepository;
+import edu.iu.habahram.DinerPancakeHouseMerge.repository.PancakeHouseRepository;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
-@RestController
 public class MergerController {
-    PancakeHouseMenu pancakeHouseMenu;
-    DinerMenu dinerMenu;
+    PancakeHouseRepository prepository;
+    DinerRepository drepository;
 
-    public MergerController(PancakeHouseMenu pancakeHouseMenu, DinerMenu dinerMenu) {
-        this.pancakeHouseMenu = pancakeHouseMenu;
-        this.dinerMenu = dinerMenu;
+    public MergerController(PancakeHouseRepository prepository, DinerRepository drepository) {
+        this.drepository = drepository;
+        this.prepository = prepository;
     }
 
     @GetMapping("/merger")
     public List<MenuItem> get() {
         List<MenuItem> mergedMenu = new ArrayList<>();
 
-        // Iterate over PancakeHouse menu
-        Iterator<MenuItem> pancakeIterator = pancakeHouseMenu.createIterator();
+        // Iterate over PancakeHouse menu using iterator
+        Iterator pancakeIterator = prepository.createIterator();
         while (pancakeIterator.hasNext()) {
-            mergedMenu.add(pancakeIterator.next());
+            mergedMenu.add((MenuItem) pancakeIterator.next());
         }
 
-        // Iterate over Diner menu
-        Iterator<MenuItem> dinerIterator = dinerMenu.createIterator();
+        // Iterate over Diner menu using iterator
+        Iterator dinerIterator = drepository.createIterator();
         while (dinerIterator.hasNext()) {
-            mergedMenu.add(dinerIterator.next());
+            mergedMenu.add((MenuItem) dinerIterator.next());
         }
 
         // Sort the merged menu by name
@@ -43,6 +41,3 @@ public class MergerController {
         return mergedMenu;
     }
 }
-
-
-
