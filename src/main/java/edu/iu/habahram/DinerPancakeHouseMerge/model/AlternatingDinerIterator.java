@@ -3,11 +3,11 @@ package edu.iu.habahram.DinerPancakeHouseMerge.model;
 import java.util.Calendar;
 import java.util.Iterator;
 
-public class AlternatingDinerMenuIterator implements Iterator<MenuItem> {
+public class AlternatingDinerIterator implements Iterator<MenuItem> {
     MenuItem[] items;
     int position;
 
-    public AlternatingDinerMenuIterator(MenuItem[] items) {
+    public AlternatingDinerIterator(MenuItem[] items) {
         this.items = items;
         position = Calendar.DAY_OF_WEEK % 2;
     }
