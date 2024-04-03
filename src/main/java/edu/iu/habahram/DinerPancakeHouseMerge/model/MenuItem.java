@@ -1,6 +1,8 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.model;
 
-public class MenuItem extends MenuComponent{
+import java.util.Iterator;
+
+public class MenuItem extends MenuComponent {
     String name;
     String description;
     boolean vegetarian;
@@ -39,5 +41,8 @@ public class MenuItem extends MenuComponent{
         MenuItem[] items = new MenuItem[1];
         items[0] = this;
         return items;
+    }
+    public Iterator<MenuComponent> createIterator() {
+        return new NullIterator();
     }
 }
