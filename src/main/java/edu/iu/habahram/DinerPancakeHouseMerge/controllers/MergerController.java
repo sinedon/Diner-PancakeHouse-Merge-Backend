@@ -1,8 +1,10 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.controllers;
 
+import edu.iu.habahram.DinerPancakeHouseMerge.model.Menu;
 import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItem;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.CafeRepository;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.DinerRepository;
+import edu.iu.habahram.DinerPancakeHouseMerge.repository.MergerRepository;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.PancakeHouseRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -27,19 +29,14 @@ public class MergerController {
     public List<MenuItem> get() {
         List<MenuItem> mergedMenu = new ArrayList<>();
 
-        Iterator<MenuItem> pancakeIterator = prepository.getTheMenuIterator();
-        while (pancakeIterator.hasNext()) {
-            mergedMenu.add(pancakeIterator.next());
-        }
+        MergerRepository mergerRepository = new MergerRepository();
+        ArrayList<Menu> menus = mergerRepository.getTheMenus();
 
-        Iterator<MenuItem> dinerIterator = drepository.getTheMenuIterator();
-        while (dinerIterator.hasNext()) {
-            mergedMenu.add(dinerIterator.next());
-        }
-
-        Iterator<MenuItem> cafeIterator = crepository.getTheMenuIterator();
-        while (dinerIterator.hasNext()) {
-            mergedMenu.add(cafeIterator.next());
+        for (Menu menu : menus) {
+            Iterator<MenuItem> menuIterator = menu.createIterator();
+            while (menuIterator.hasNext()) {
+                mergedMenu.add(menuIterator.next());
+            }
         }
 
         mergedMenu.sort(Comparator.comparing(MenuItem::getName));
