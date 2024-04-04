@@ -38,16 +38,15 @@ public class Menu extends MenuComponent{
 
     public MenuItem[] getItems() {
         List<MenuItem> menuItemList = new ArrayList<>();
-        Iterator<MenuComponent> iterator = menuComponents.iterator();
+        Iterator<MenuComponent> iterator = createIterator();
         while (iterator.hasNext()) {
             MenuComponent menuComponent =
                     iterator.next();
             Collections.addAll(menuItemList, menuComponent.getItems());
-
         }
+        MenuItem[] dummy = menuItemList.toArray(new MenuItem[menuItemList.size()]);
         return menuItemList.toArray(new MenuItem[menuItemList.size()]);
     }
-
     @Override
     public Iterator<MenuComponent> createIterator() {
         if (iterator == null) {
