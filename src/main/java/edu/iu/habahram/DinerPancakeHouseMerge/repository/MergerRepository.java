@@ -13,6 +13,7 @@ public class MergerRepository {
 
     public List<MenuItemRecord> getTheMenuItems() {
         MenuComponent allMenus = new Menu("ALL MENUS", "All menus combined");
+        MenuComponent DinerMenu = new DinerMenu("Diner Menu", "Lunch");
         allMenus.add(new DinerMenu("DINER MENU", "Lunch"));
         allMenus.add(new PancakeHouseMenu("PANCAKE HOUSE MENU", "Breakfast"));
         allMenus.add(new CafeMenu("CAFE MENU", "Dinner"));
@@ -133,5 +134,6 @@ public class MergerRepository {
 
         return dinnerItems;
     }
+
 
 }

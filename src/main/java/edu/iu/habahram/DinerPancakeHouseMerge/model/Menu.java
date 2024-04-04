@@ -44,7 +44,6 @@ public class Menu extends MenuComponent{
                     iterator.next();
             Collections.addAll(menuItemList, menuComponent.getItems());
         }
-        MenuItem[] dummy = menuItemList.toArray(new MenuItem[menuItemList.size()]);
         return menuItemList.toArray(new MenuItem[menuItemList.size()]);
     }
     @Override
